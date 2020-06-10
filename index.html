@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Anomia</title>
+        <link type="text/css" rel="stylesheet" href="style.css" />
+    </head>
+
+    <body>
+        <div id="titleScreen">
+            <h1>ANOMIA</h1>
+            <button id="openInstructions" onclick="openInstructions()">Instructions</button>
+            <button id="openSettings" onclick="openSettings()">Settings</button>
+            <button id="play" onclick="play()">Play</button>
+        </div>
+
+        <div id="settings">
+            <h1>SETTINGS</h1>
+
+            <fieldset>
+                <legend>Players</legend>
+                <div id="addPlayersDiv">
+                    <button id="addPlayer" onclick="addPlayer()">+</button>
+                    <button id="removePlayer" onclick="removePlayer()">-</button>
+                </div>
+                <div id="playersDiv"></div>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Symbols</legend>
+                <div id="symbolsDiv">
+                    <input type="radio" id="symbols2" name="symbols" value="2"><label for="symbols2">2</label>
+                    <input type="radio" id="symbols3" name="symbols" value="3"><label for="symbols3">3</label>
+                    <input type="radio" id="symbols4" name="symbols" value="4"><label for="symbols4">4</label>
+                    <input type="radio" id="symbols5" name="symbols" value="5"><label for="symbols5">5</label>
+                    <input type="radio" id="symbols6" name="symbols" value="6"><label for="symbols6">6</label>
+                    <input type="radio" id="symbols7" name="symbols" value="7"><label for="symbols7">7</label>
+                    <input type="radio" id="symbols8" name="symbols" value="8"><label for="symbols8">8</label>
+                    <input type="radio" id="symbols9" name="symbols" value="9"><label for="symbols9">9</label>
+                </div>
+                <div id="symbolsPreview"></div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Categories</legend>
+                <p>Separate with commas. Leave blank for default categories.</p>
+                <textarea id="categories" placeholder="Paste here..."></textarea>
+            </fieldset>
+            
+        </div>
+    </body>
+
+    <div id="playerTemplate" class="player">
+        <input type="text">
+    </div>
+
+    <img id="symbolPreviewTemplate" class="symbolPreview" />
+
+    <script type="text/javascript" src="script.js"></script>
+</html>

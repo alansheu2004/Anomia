@@ -1,0 +1,183 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Comic Sans MS";
+    outline: none;
+}
+
+*[id$="Template"] {
+    display: none;
+}
+
+:root {
+    --backgroundColor: black;
+    --textColor: white;
+    --highlightColor: darkblue;
+    --highlightColorLight: blue;
+    --highlightColorDark: #000050;
+    --highlightTextColor: white;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: var(--backgroundColor);
+    color: var(--textColor);
+}
+
+div#titleScreen, div#settings {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: filter 0.25s;
+}
+
+.fadeOut {
+    filter: opacity(0);
+}
+
+div#settings {
+    display: none;
+    filter: opacity(0);
+    transition: filter 0.5s;
+}
+
+div#settings.fadeIn {
+    filter: opacity(1);
+}
+
+@keyframes fadeOut {
+    from: {filter: opacity(1);}
+    to: {filter: opacity(0);}
+}
+
+div#titleScreen h1 {
+    font-size: 10vw;
+    margin-bottom: 5vw;
+}
+
+div#titleScreen button {
+    color: var(--highlightTextColor);
+    border: none;
+    background-color: var(--highlightColor);
+    font-size: 3vw;
+    padding: 1vw 2vw;
+    margin: 1vw 0;
+}
+
+div#titleScreen button:hover {
+    background-color: var(--highlightColorLight);
+    transition: 0.2s;
+}
+
+div#titleScreen button:active {
+    background-color: var(--highlightColorDark);
+}
+
+div#settings h1 {
+    font-size: 5vw;
+}
+
+div#settings fieldset {
+    margin-top: 1vw;
+    text-align: center;
+    padding: 1vw;
+    width: 85%;
+}
+
+div#settings fieldset legend {
+    font-size: 2.5vw;
+}
+
+div#playersDiv {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+div.player input {
+    font-size: 1.5vw;
+    text-align: center;
+    padding: 0.25vw 0;
+    width: 10vw;
+    margin: 0.25vw 0.25vw;
+}
+
+div#addPlayersDiv {
+    padding: 1vw 0;
+}
+
+div#addPlayersDiv button {
+    color: var(--highlightTextColor);
+    border: none;
+    line-height: 1;
+    background-color: var(--highlightColor);
+    font-size: 3vw;
+    padding: 0 2vw;
+}
+
+div#addPlayersDiv button:hover:not(:disabled) {
+    background-color: var(--highlightColorLight);
+    transition: 0.2s;
+}
+
+div#addPlayersDiv button:active:not(:disabled) {
+    background-color: var(--highlightColorDark);
+}
+
+div#addPlayersDiv button:disabled {
+    filter: opacity(0.5);
+}
+
+div#symbolsDiv {
+    font-size: 0;
+}
+
+div#symbolsDiv input {
+    display: none;
+}
+
+div#symbolsDiv label {
+    display: inline-block;
+    text-align: center;
+    font-size: 2vw;
+    background-color: var(--highlightColor);
+    color: var(--highlightTextColor);
+    padding: 0.25vw;
+    width: 5vw;
+}
+
+div#symbolsDiv input:checked + label {
+    background-color: var(--highlightColorDark);
+}
+
+div#symbolsDiv label:hover {
+    background-color: var(--highlightColorLight);
+    transition: 0.2s;
+}
+
+div#symbolsDiv label:active {
+    background-color: var(--highlightColorDark);
+}
+
+img.symbolPreview {
+    height: 3vw;
+    margin: 1vw 0.5vw 0;
+}
+
+div#settings p {
+    font-size: 1.5vw;
+    margin-bottom: 1vw;
+}
+
+textArea#categories {
+    font-size: 1.5vw;
+    text-align: center;
+    vertical-align: center;
+    overflow-y: auto;
+    width: 80%;
+    height: 8vw;
+}
