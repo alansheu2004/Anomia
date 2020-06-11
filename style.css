@@ -6,7 +6,7 @@
 }
 
 *[id$="Template"] {
-    display: none;
+    display: none !important;
 }
 
 :root {

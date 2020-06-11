@@ -53,8 +53,50 @@ function shuffleArray(array) {
     return array;
 }
 
+function Player(name) {
+    this.name = name;
+    this.stack = [];
+}
+
+function createPlayers() {
+    let array = [];
+    for(let player of playerInputDiv.children) {
+        let name = player.children[0].value.replace(/\s+/g," ").trim()
+        array.push(new Player(name == "" ? player.children[0].placeholder : name.value));
+    }
+    return array;
+}
+
+function setDimensions() {
+    vw = document.documentElement.clientWidth/100;
+    vh = document.documentElement.clientHeight/100;
+    cardGap = 2*vw;
+    minPlayerGap = 4*vw;
+    maxCardHeight = 33*vh;
+
+    layout = rowLayout.checked;
+    if(layout) {
+        cardWidth = Math.min(maxCardHeight*WHRatio, ((100*vw - (players.length+1)*minPlayerGap)/players.length - cardGap)/2);
+    }
+}
+
 var deck;
+var players;
+
+const HWRatio = 3.5/2.25;
+const WHRatio = 1/HWRatio;
+var vw;
+var vh;
+var cardGap;
+var minPlayerGap;
+var maxCardHeight;
+
+var layout; //true if row, false if circular
+var cardWidth;
 
 function play() {
     deck = createDeck();
+    players = createPlayers();
+
+    setDimensions();
 }

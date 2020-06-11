@@ -3,10 +3,10 @@ const instructions = document.getElementById("instructions");
 const settings = document.getElementById("settings");
 const game = document.getElementById("game");
 
-const playersDiv = document.getElementById("playersDiv");
+const playerInputDiv = document.getElementById("playerInputDiv");
 const addPlayerButton = document.getElementById("addPlayer");
 const removePlayerButton = document.getElementById("removePlayer");
-const playerTemplate = document.getElementById("playerTemplate");
+const playerInputTemplate = document.getElementById("playerInputTemplate");
 
 const symbolsDiv = document.getElementById("symbolsDiv");
 const symbolsPreview = document.getElementById("symbolsPreview");
@@ -49,14 +49,14 @@ function returnToTitle(div) {
 }
 
 function addPlayer() {
-    var playerCount = playersDiv.children.length;
+    var playerCount = playerInputDiv.children.length;
 
     if(playerCount < 6) {
-        let player = playerTemplate.cloneNode(true);
+        let player = playerInputTemplate.cloneNode(true);
         player.id = "";
         player.children[0].id = "player" + (playerCount+1);
         player.children[0].placeholder = "Player " + (playerCount+1);
-        playersDiv.appendChild(player);
+        playerInputDiv.appendChild(player);
     }
 
     removePlayerButton.disabled = false;
@@ -66,10 +66,10 @@ function addPlayer() {
 }
 
 function removePlayer() {
-    var playerCount = playersDiv.children.length;
+    var playerCount = playerInputDiv.children.length;
 
     if(playerCount > 2) {
-        playersDiv.removeChild(playersDiv.lastChild);
+        playerInputDiv.removeChild(playerInputDiv.lastChild);
     }
 
     addPlayerButton.disabled = false;

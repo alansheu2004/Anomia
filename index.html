@@ -4,6 +4,9 @@
     <head>
         <title>Anomia</title>
         <link type="text/css" rel="stylesheet" href="style.css" />
+        <link type="text/css" rel="stylesheet" href="game.css" />
+
+        <link rel="manifest" href="manifest.json">
     </head>
 
     <body>
@@ -31,7 +34,7 @@
                     <button id="addPlayer" onclick="addPlayer()">+</button>
                     <button id="removePlayer" onclick="removePlayer()">-</button>
                 </div>
-                <div id="playersDiv"></div>
+                <div id="playerInputDiv"></div>
             </fieldset>
             
             <fieldset>
@@ -75,14 +78,28 @@
             <button class="returnToTitle" onclick="returnToTitle(settings);">Done</button>
         </div>
 
-        <div id="game"></div>
+        <div id="game" style="display: none">
+            <div id="playerDiv">
+                <div class="player">
+                    <div class="cardStacks">
+                        <img class="stack card" src="images/cardBack.png" />
+                        <img class="pointsStack card" src="images/cardBack.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 
-    <div id="playerTemplate" class="player">
+    <div id="playerInputTemplate" class="playerInput">
         <input type="text">
     </div>
 
     <img id="symbolPreviewTemplate" class="symbolPreview" />
+
+    <div id="playerTemplate" class="player">
+        <img class="stack card" src="images/cardBack.png" />
+        <img class="pointsStack card" src="images/cardBack.png" />
+    </div>
 
     <script type="text/javascript" src="script.js"></script>
     <script type="text/javascript" src="game.js"></script>
