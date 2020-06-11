@@ -25,38 +25,40 @@ html, body {
     color: var(--textColor);
 }
 
-div#titleScreen, div#settings {
+div#titleScreen, div#settings, div#instructions {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: filter 0.25s;
+    filter: opacity(1);
+    transition: filter 1s;
+    overflow-y: auto;
 }
 
 .fadeOut {
-    filter: opacity(0);
+    animation-name: fadeOut;
+    animation-duration: 0.25s;
+    animation-fill-mode: forwards;
 }
 
-div#settings {
-    display: none;
+.fadeIn {
+    animation-name: fadeOut;
+    animation-duration: 0.25s;
+    animation-direction: reverse;
+    animation-fill-mode: forwards;
     filter: opacity(0);
-    transition: filter 0.5s;
-}
-
-div#settings.fadeIn {
-    filter: opacity(1);
 }
 
 @keyframes fadeOut {
-    from: {filter: opacity(1);}
-    to: {filter: opacity(0);}
+    from {filter: opacity(1);}
+    to {filter: opacity(0);}
 }
 
 div#titleScreen h1 {
     font-size: 10vw;
-    margin-bottom: 5vw;
+    margin-bottom: 3vh;
 }
 
 div#titleScreen button {
@@ -77,19 +79,47 @@ div#titleScreen button:active {
     background-color: var(--highlightColorDark);
 }
 
-div#settings h1 {
-    font-size: 5vw;
+button.returnToTitle {
+    color: var(--highlightTextColor);
+    border: none;
+    background-color: var(--highlightColor);
+    font-size: 2.5vw;
+    padding: 1vw 2vw;
+    margin: 3vw 0;
+}
+
+button.returnToTitle:hover {
+    background-color: var(--highlightColorLight);
+    transition: 0.2s;
+}
+
+button.returnToTitle:active {
+    background-color: var(--highlightColorDark);
+}
+
+div#instructions p {
+    width: 80vw;
+    margin-bottom: 3vw;
 }
 
 div#settings fieldset {
     margin-top: 1vw;
     text-align: center;
-    padding: 1vw;
+    padding: 0 0 1vw;
     width: 85%;
+    border-color: var(--highlightColorLight);
 }
 
 div#settings fieldset legend {
     font-size: 2.5vw;
+    color: var(--highlightColor);
+    font-weight: bold;
+}
+
+div#settings fieldset h2 {
+    font-size: 2vw;
+    margin-top: 1vw;
+    color: var(--highlightColor);
 }
 
 div#playersDiv {
@@ -178,6 +208,48 @@ textArea#categories {
     text-align: center;
     vertical-align: center;
     overflow-y: auto;
+    resize: none;
     width: 80%;
     height: 8vw;
+}
+
+input#cardsNum {
+    width: 40vw;
+}
+
+label#cardsNumLabel {
+    display: inline-block;
+    font-size: 2vw;
+    width: 5vw;
+}
+
+div#layoutDiv {
+    font-size: 0;
+}
+
+div#layoutDiv input {
+    display: none;
+}
+
+div#layoutDiv label {
+    display: inline-block;
+    text-align: center;
+    font-size: 2vw;
+    background-color: var(--highlightColor);
+    color: var(--highlightTextColor);
+    padding: 0.25vw;
+    width: 10vw;
+}
+
+div#layoutDiv input:checked + label {
+    background-color: var(--highlightColorDark);
+}
+
+div#layoutDiv label:hover {
+    background-color: var(--highlightColorLight);
+    transition: 0.2s;
+}
+
+div#layoutDiv label:active {
+    background-color: var(--highlightColorDark);
 }

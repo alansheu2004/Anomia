@@ -1,4 +1,5 @@
 const titleScreen = document.getElementById("titleScreen");
+const instructions = document.getElementById("instructions");
 const settings = document.getElementById("settings");
 
 const playersDiv = document.getElementById("playersDiv");
@@ -10,13 +11,40 @@ const symbolsDiv = document.getElementById("symbolsDiv");
 const symbolsPreview = document.getElementById("symbolsPreview");
 const symbolPreviewTemplate = document.getElementById("symbolPreviewTemplate");
 
-function openSettings() {
+const categoriesTextArea = document.getElementById("categories");
+
+const cardsNumSlider = document.getElementById("cardsNum");
+const cardsNumLabel = document.getElementById("cardsNumLabel");
+
+const rowLayout = document.getElementById("rowLayout");
+const circularLayout = document.getElementById("circularLayout");
+
+function openSubscreen(div) {
     titleScreen.classList.add("fadeOut");
     setTimeout(function() {
         titleScreen.style.display = "none";
-        settings.style.display = "flex";
-        //settings.classList.add("fadeIn");
-    }, 500)
+        titleScreen.classList.remove("fadeOut");
+
+        div.classList.add("fadeIn");
+        div.style.display = "flex";
+        setTimeout(function() {
+            div.classList.remove("fadeIn");
+        }, 1000);
+    }, 500);
+}
+
+function returnToTitle(div) {
+    div.classList.add("fadeOut");
+    setTimeout(function() {
+        div.style.display = "none";
+        div.classList.remove("fadeOut");
+
+        titleScreen.classList.add("fadeIn");
+        titleScreen.style.display = "flex";
+        setTimeout(function() {
+            titleScreen.classList.remove("fadeIn");
+        }, 1000);
+    }, 500);
 }
 
 function addPlayer() {
@@ -60,6 +88,10 @@ function changeSymbol(e) {
     }
 }
 
+function changeCardsNum(e) {
+    cardsNumLabel.textContent = e.target.value;
+}
+
 window.onload = function() {
     for(var i = 0; i < 4; i++) {
         addPlayer();
@@ -71,5 +103,20 @@ window.onload = function() {
             changeSymbol({target: input});
             input.checked = "checked";
         }
+    }
+
+    if(navigator.userAgent.match(/Android/i)
+      || navigator.userAgent.match(/webOS/i)
+      || navigator.userAgent.match(/iPhone/i)
+      || navigator.userAgent.match(/iPad/i)
+      || navigator.userAgent.match(/iPod/i)
+      || navigator.userAgent.match(/BlackBerry/i)
+      || navigator.userAgent.match(/Windows Phone/i)) {
+
+        document.getElementById("layoutText").textContent = "(Circular Layout recommended for mobile)";
+        circularLayout.checked = "checked";
+    } else {
+        document.getElementById("layoutText").textContent = "(Row Layout recommended for desktop)";
+        rowLayout.checked = "checked";
     }
 }
