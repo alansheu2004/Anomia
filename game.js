@@ -9,18 +9,18 @@ function Wildcard(symbol, symbol) {
 
 function createDeck() {
     var deck = [];
-    var categories = categoriesTextArea.value.split(",").map(function(x) {return x.trim();});
+    var categories = categoriesTextArea.value.split(",").map(function(x) {return x.replace(/\s+/g," ").trim();});
     var randomizedCategories = [];
     var categoryCounter = 0;
     var symbols = [];
     var symbolCounter = 0;
     var cardsNum = cardsNumSlider.value;
 
-    if(categories.length == 0) {
-        categories
+    if(categories.length == 1 && categories[0] == "") {
+        categories = ["A", "B", "C", "D", "E"];
     }
 
-    while(randomizedCategories.length <= cardsNum*0.85) {
+    while(randomizedCategories.length < cardsNum) {
         randomizedCategories.push.apply(randomizedCategories, shuffleArray(categories));
     }
 
@@ -31,17 +31,16 @@ function createDeck() {
         }
     }
 
-    for(let symbol of symbols) {
-        deck.push(new Card(symbol, randomizedCategories[categoryCounter++]));
-        deck.push(new Card(symbol, randomizedCategories[categoryCounter++]));
-    } 
-
     while(deck.length <= cardsNum*0.85) {
-        deck.push.apply(symbols[symbolCounter%symbols.length], randomizedCategories[categoryCounter++]);
-        deck.push.apply(symbols[symbolCounter%symbols.length], randomizedCategories[categoryCounter++]);
+        deck.push(new Card(symbols[symbolCounter%symbols.length], randomizedCategories[categoryCounter++]));
+        symbolCounter++;
     }
 
-    return deck;
+    while(deck.length < cardsNum) {
+        deck.push(new Wildcard());
+    }
+
+    return shuffleArray(deck);
 }
 
 function shuffleArray(array) {
@@ -52,4 +51,10 @@ function shuffleArray(array) {
         array[j] = temp;
     }
     return array;
+}
+
+var deck;
+
+function play() {
+    deck = createDeck();
 }

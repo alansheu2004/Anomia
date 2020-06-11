@@ -9,9 +9,9 @@
     <body>
         <div id="titleScreen">
             <h1>ANOMIA</h1>
-            <button id="openInstructions" onclick="openSubscreen(instructions)">Instructions</button>
-            <button id="openSettings" onclick="openSubscreen(settings)">Settings</button>
-            <button id="play" onclick="play()">Play</button>
+            <button id="openInstructions" onclick="openSubscreen(instructions);">Instructions</button>
+            <button id="openSettings" onclick="openSubscreen(settings);">Settings</button>
+            <button id="play" onclick="openSubscreen(game); play();">Play</button>
         </div>
 
         <div id="instructions" style="display: none">
@@ -74,6 +74,8 @@
             
             <button class="returnToTitle" onclick="returnToTitle(settings);">Done</button>
         </div>
+
+        <div id="game"></div>
     </body>
 
     <div id="playerTemplate" class="player">
