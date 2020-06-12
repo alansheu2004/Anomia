@@ -32,7 +32,7 @@ function createDeck() {
         }
     }
 
-    while(deck.length <= cardsNum*1) {
+    while(deck.length <= cardsNum*0.85) {
         deck.push(new Card(symbols[symbolCounter%symbols.length], randomizedCategories[categoryCounter++]));
         symbolCounter++;
     }
@@ -124,6 +124,7 @@ var deck;
 var players;
 var turn;
 var faceOff = [];
+var currentWildcard = false;
 
 function play() {
     deck = createDeck();
@@ -143,31 +144,39 @@ function draw() {
     let wildcard = false;
 
     if(card.type == "wildcard") {
-        let wildcardValid; 
+        let wildcardValid;
         for(let player of players) {
             if(player.stack.length > 0) {
                 if(wildcardValid == undefined) {
-                    wildcardValid = player.stack.slice(-1)[0];
-                } else if(wildcardValid != player.stack.slice(-1)[0]) {
+                    wildcardValid = player.stack.slice(-1)[0].symbol;
+                } else if(wildcardValid != player.stack.slice(-1)[0].symbol) {
                     wildcardValid = true;
                     break;
                 }
             }
         }
 
+        if(deck.length == 0) {
+            wildcardValid = true;
+        }
+
         if(wildcardValid === true) {
             wildcard = true;
-            try {
-                card.symbol1 = players[Math.floor(Math.random() * 4)].stack.slice(-1)[0].symbol;
-            } catch {}
+            while(card.symbol1 == undefined) {
+                try {
+                    card.symbol1 = players[Math.floor(Math.random() * 4)].stack.slice(-1)[0].symbol;
+                } catch {}
+            }
             while(card.symbol2 == undefined || card.symbol1 == card.symbol2) {
                 try {
                     card.symbol2 = players[Math.floor(Math.random() * 4)].stack.slice(-1)[0].symbol;
                 } catch {}
             }
             cardElement = wildcardTemplate.cloneNode(true);
-            cardElement.children[0].src = "images/symbols/symbol" + (card.symbol1) + ".svg";;
-            cardElement.children[2].src = "images/symbols/symbol" + (card.symbol2) + ".svg";;
+            cardElement.children[0].src = "images/symbols/symbol" + (card.symbol1) + ".svg";
+            cardElement.children[2].src = "images/symbols/symbol" + (card.symbol2) + ".svg";
+            cardElement.id = "";
+            currentWildcard = cardElement;
         } else {
             deck.splice(0, 0, card);
             draw();
@@ -194,10 +203,10 @@ function draw() {
 
     cardElement.style.left = midX + "px";
     cardElement.style.top = midY + "px";
-    cardElement.style.transform = "rotate(45deg) rotateY(90deg)";
+    cardElement.style.transform = "scale(1.25,1.25) rotate(45deg) rotateY(90deg)";
 
     let sheet = document.createElement("style");
-    sheet.textContent = "img.cardBack.flip { transform:rotate(45deg) rotateY(90deg); left:"+midX+"px; top:"+midY+"px; }"
+    sheet.textContent = "img.cardBack.flip { transform:scale(1.5,1.5) rotate(45deg) rotateY(90deg); left:"+midX+"px; top:"+midY+"px; }"
     sheet.textContent += "div.dynamic.flip { transform:none; left:"+targetX+"px; top:"+targetY+"px; }"
     document.body.appendChild(sheet);
 
@@ -224,9 +233,12 @@ function draw() {
                         }
                         player.element.children[3].appendChild(cardElement);
                         player.stack.push(card);
+                        cardElement.classList.remove("dynamic");   
+                    } else {
+                        cardElement.style.left = cardElement.offsetLeft+"px";
+                        cardElement.style.top = cardElement.offsetTop+"px";
                     }
                     cardElement.classList.remove("flip");
-                    cardElement.classList.remove("dynamic");
 
                     document.body.removeChild(sheet);
 
@@ -266,6 +278,7 @@ function startFaceOff(wildcard, card, initiator) {
         }
     }
 
+
     if(faceOff.length == 0) {
         deckImg.addEventListener("click", draw);
     } else {
@@ -281,17 +294,25 @@ function winFaceOff(player) {
             faceOff[0].element.children[3].insertBefore(createCard(faceOff[0].stack.slice(-1)[0]), faceOff[0].element.children[3].lastChild);
         }
         faceOff[0].element.children[3].lastChild.classList.add("slideUp");
+        if (currentWildcard) {
+            currentWildcard.classList.add("slideDown");
+        }
+        player.points++;
+        player.element.children[1].textContent = player.points + " pts";
 
         setTimeout(function() {
             faceOff[0].element.children[3].removeChild(faceOff[0].element.children[3].lastChild);
-            player.points++;
-            player.element.children[1].textContent = player.points + " pts";
+            if (currentWildcard) {
+                game.removeChild(currentWildcard);
+                currentWildcard = false;
+            }
 
             deckImg.removeEventListener("click", faceOffAlert);
 
             if(faceOff[0].stack.length > 0) {
                 startFaceOff(false, faceOff[0].stack.slice(-1)[0], faceOff[0]);
             } else {
+                faceOff = [];
                 deckImg.addEventListener("click", draw);
             }
         }, 250);

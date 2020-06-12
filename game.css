@@ -3,7 +3,7 @@ div#game {
     min-height: 100%;
     filter: opacity(1);
     transition: filter 1s;
-    overflow-y: auto;
+    overflow-y: hidden;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -38,7 +38,8 @@ h2.points {
 }
 
 h2.points + button {
-    padding: 0.25vh 0.5vh;
+    padding: 0.25vh 1vh;
+    margin-left: 1vh;
     background-color: var(--highlightColor);
     font-size: 2vh;
     text-align: center;
@@ -145,4 +146,9 @@ div.cardFront img.symbol {
 div.cardFront.slideUp {
     filter: opacity(0);
     transform: translateY(-50%);
+}
+
+div.cardFront.slideDown {
+    filter: opacity(0);
+    transform: translateY(50%);
 }
