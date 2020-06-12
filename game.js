@@ -1,10 +1,11 @@
 function Card(symbol, category) {
     this.symbol = symbol;
     this.category = category;
+    this.type = "card";
 }
 
-function Wildcard(symbol, symbol) {
-
+function Wildcard() {
+    this.type = "wildcard";
 }
 
 function createDeck() {
@@ -88,7 +89,7 @@ function setupElements() {
         deckImg.style.height = cardWidth + "px";
         let sheet = document.createElement("style");
         sheet.textContent = "img.cardBack { width:"+cardWidth+"px; height:"+cardHeight+"px; }"
-        sheet.textContent += "div.faceUpCard { width:"+cardWidth+"px; height:"+cardHeight+"px; }"
+        sheet.textContent += "div.cardFront { width:"+cardWidth+"px; height:"+cardHeight+"px; }"
         document.body.appendChild(sheet);
 
         cardsLeft.textContent = deck.length;
@@ -131,13 +132,47 @@ function draw() {
 
     let player = players[turn%players.length];
     let card = deck.pop();
-    let cardElement = cardTemplate.cloneNode(true);
+    let cardElement;
+    let wildcard = false;
 
-    cardElement.children[0].textContent = card.category;
-    cardElement.children[2].textContent = card.category;
+    if(card.type == "wildcard") {
+        let wildcardValid; 
+        for(let player of players) {
+            if(player.stack.length > 0) {
+                if(wildcardValid == undefined) {
+                    wildcardValid = player.stack.slice(-1)[0];
+                } else if(wildcardValid != player.stack.slice(-1)[0]) {
+                    wildcardValid = true;
+                    break;
+                }
+            }
+        }
+
+        if(wildcardValid === true) {
+            wildcard = true;
+            card.symbol1 = players[Math.floor(Math.random() * 4)].stack.slice(-1)[0].symbol;
+            while(card.symbol2 == undefined || card.symbol1 == card.symbol2) {
+                try {
+                    card.symbol2 = players[Math.floor(Math.random() * 4)].stack.slice(-1)[0].symbol;
+                } catch {}
+            }
+            cardElement = wildcardTemplate.cloneNode(true);
+            cardElement.children[0].src = "images/symbols/symbol" + (card.symbol1) + ".svg";;
+            cardElement.children[2].src = "images/symbols/symbol" + (card.symbol2) + ".svg";;
+        } else {
+            deck.splice(0, 0, card);
+            draw();
+            return;
+        }
+    } else {
+        cardElement = cardTemplate.cloneNode(true);
+        cardElement.children[0].textContent = card.category;
+        cardElement.children[2].textContent = card.category;
+        cardElement.children[1].src = "images/symbols/symbol" + (card.symbol) + ".svg";
+    }
+
     cardElement.id = "";
-    cardElement.classList.add("cardFront");
-    cardElement.children[1].src = "images/symbols/symbol" + (card.symbol+1) + ".svg";
+    cardElement.classList.add("dynamic");
 
     cardsLeft.textContent = deck.length;
 
@@ -147,8 +182,8 @@ function draw() {
     newCardBack.style.transform = "rotate(90deg)";
     newCardBack.id = "";
 
-    let targetX = player.element.children[2].offsetLeft;
-    let targetY = player.element.children[2].offsetTop;
+    let targetX = wildcard ? Number(newCardBack.style.left.slice(0,-2)) : player.element.children[2].offsetLeft;
+    let targetY = wildcard ? Number(newCardBack.style.top.slice(0,-2)) : player.element.children[2].offsetTop;
     let midX = (targetX + Number(newCardBack.style.left.slice(0,-2))) / 2;
     let midY = (targetY + Number(newCardBack.style.top.slice(0,-2))) / 2;
 
@@ -158,7 +193,7 @@ function draw() {
 
     let sheet = document.createElement("style");
     sheet.textContent = "img.cardBack.flip { transform:rotate(45deg) rotateY(90deg); left:"+midX+"px; top:"+midY+"px; }"
-    sheet.textContent += "div.cardFront.flip { transform:none; left:"+targetX+"px; top:"+targetY+"px; }"
+    sheet.textContent += "div.dynamic.flip { transform:none; left:"+targetX+"px; top:"+targetY+"px; }"
     document.body.appendChild(sheet);
 
     game.appendChild(newCardBack);
@@ -178,13 +213,19 @@ function draw() {
 
                 setTimeout(function() {
                     game.removeChild(cardElement);
+                    if(player.element.children[2].children.length > 1) {
+                        player.element.children[2].removeChild(player.element.children[2].children[1]);
+                    }
                     player.element.children[2].appendChild(cardElement);
                     cardElement.classList.remove("flip");
+                    cardElement.classList.remove("dynamic");
 
                     document.body.removeChild(sheet);
 
+                    player.stack.push(card);
+
                     player.element.classList.remove("turn");
-                    player = players[(turn++)%players.length];
+                    player = players[(++turn)%players.length];
                     player.element.classList.add("turn");
 
                     deckImg.addEventListener("click", draw);

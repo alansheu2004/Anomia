@@ -84,16 +84,14 @@ img.cardBack {
     transition-timing-function: ease-in;
 }
 
-div.cardFront {
+div.dynamic {
     position: absolute;
     transform-origin: 50% 50%;
     transition-duration: 0.3s;
     transition-timing-function: ease-out;
 }
 
-div.faceUpCard {
-    width: 225px;
-    height: 350px;
+div.cardFront {
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -105,17 +103,17 @@ div.faceUpCard {
     top: 0;
 }
 
-div.faceUpCard p {
+div.cardFront p {
     color: black;
     font-weight: bold;
     text-align: center;
 }
 
-div.faceUpCard p:first-child {
+div.cardFront *:first-child {
     transform: rotate(180deg);
 }
 
-div.faceUpCard img.symbol {
+div.cardFront img.symbol {
     width: 40%;
     margin: 0 30%;
 }
