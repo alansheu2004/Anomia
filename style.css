@@ -72,6 +72,7 @@ div#titleScreen button {
 
 div#titleScreen button:hover {
     background-color: var(--highlightColorLight);
+    cursor: pointer;
     transition: 0.2s;
 }
 
@@ -90,6 +91,7 @@ button.returnToTitle {
 
 button.returnToTitle:hover {
     background-color: var(--highlightColorLight);
+    cursor: pointer;
     transition: 0.2s;
 }
 
@@ -186,6 +188,7 @@ div#symbolsDiv input:checked + label {
 
 div#symbolsDiv label:hover {
     background-color: var(--highlightColorLight);
+    cursor: pointer;
     transition: 0.2s;
 }
 
@@ -247,6 +250,7 @@ div#layoutDiv input:checked + label {
 
 div#layoutDiv label:hover {
     background-color: var(--highlightColorLight);
+    cursor: pointer;
     transition: 0.2s;
 }
 
