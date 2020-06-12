@@ -55,6 +55,7 @@ function shuffleArray(array) {
 
 function Player(name) {
     this.name = name;
+    this.points = 0;
     this.stack = [];
 }
 
@@ -62,41 +63,54 @@ function createPlayers() {
     let array = [];
     for(let player of playerInputDiv.children) {
         let name = player.children[0].value.replace(/\s+/g," ").trim()
-        array.push(new Player(name == "" ? player.children[0].placeholder : name.value));
+        array.push(new Player(name == "" ? player.children[0].placeholder : name));
     }
     return array;
 }
 
-function setDimensions() {
-    vw = document.documentElement.clientWidth/100;
-    vh = document.documentElement.clientHeight/100;
-    cardGap = 2*vw;
-    minPlayerGap = 4*vw;
-    maxCardHeight = 33*vh;
-
+function setupElements() {
     layout = rowLayout.checked;
     if(layout) {
-        cardWidth = Math.min(maxCardHeight*WHRatio, ((100*vw - (players.length+1)*minPlayerGap)/players.length - cardGap)/2);
+        for (let player of players) {
+            let element = playerTemplate.cloneNode(true);
+            element.children[0].textContent = player.name;
+            element.children[1].textContent = player.points + " pts";
+            element.id = "";
+            playerDiv.appendChild(element);
+
+            player.element = element;
+        }
+        
+        players[turn%players.length].element.classList.add("turn");
+        cardWidth = document.getElementsByClassName("placeholderCard")[0].offsetWidth;
+        deckImg.style.width = cardWidth + "px";
+        document.getElementById("cardsLeft").textContent = deck.length;
     }
 }
 
-var deck;
-var players;
+function CreateCard() {
+
+}
 
 const HWRatio = 3.5/2.25;
 const WHRatio = 1/HWRatio;
-var vw;
-var vh;
-var cardGap;
-var minPlayerGap;
-var maxCardHeight;
 
-var layout; //true if row, false if circular
+const playerDiv = document.getElementById("playerDiv");
+const playerTemplate = document.getElementById("playerTemplate");
+const deckImg = document.getElementById("deck");
+
+var layout;
 var cardWidth;
+
+var deck;
+var players;
+var turn;
 
 function play() {
     deck = createDeck();
     players = createPlayers();
+    turn = 0;
 
-    setDimensions();
+    setupElements();
+    deckImg
 }

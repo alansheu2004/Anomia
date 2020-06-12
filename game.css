@@ -4,37 +4,95 @@ div#game {
     filter: opacity(1);
     transition: filter 1s;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 div#playerDiv {
     width: 100%;
-    height: 30vh;
+    height: 48vh;
     display: flex;
+    margin-top: 2vh;
+    flex: 0 0 auto;
 }
 
 div.player {
     height: 100%;
-    margin: 0 10px;
+    padding: 0 10px;
+    margin: 0 auto;
     flex: 0 1 auto;
-    background-color: red;
 }
 
-div.cardStacks {
+h1.playerName {
+    font-size: 3vh;
+    text-align: center;
+}
+
+h2.points {
+    font-size: 2.5vh;
+    text-align: center;
+    margin-bottom: 1vh;
+}
+
+div.player.turn h1.playerName, div.player.turn h2.points {
+    color: var(--highlightColorLight);
+}
+
+div.stack {
     width: 100%;
-    height: 100%;
+    height: 80%;
+}
+
+.card {
+    border-radius: 12.5% / 8%;
+}
+
+img.placeholderCard {
+    max-height: 100%;
+    max-width: 100%;
+    visibility: hidden;
+}
+
+div#deckDiv {
+    flex: 1 1 auto;
     display: flex;
-    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-img.stack {
-    margin-right: 5px;
-    object-fit: contain;
-    max-height: 100%;
-    max-width: calc(50% - 2.5px);
+div#deckDiv h2 {
+    font-size: 3vh;
+    flex: 0 0 auto;
 }
 
-img.pointsStack {
-    object-fit: contain;
-    max-height: 100%;
-    max-width: calc(50% - 2.5px);
+div#deckWrapper {
+    transform-origin: 50% 50%;
+    transform: rotate(90deg);
+    flex: 0 0 auto;
+}
+
+div.faceUpCard {
+    width: 225px;
+    height: 350px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+div.faceUpCard p {
+    color: black;
+    font-weight: bold;
+    text-align: center;
+}
+
+div.faceUpCard p:first-child {
+    transform: rotate(180deg);
+}
+
+div.faceUpCard img.symbol {
+    width: 40%;
+    margin: 0 30%;
 }

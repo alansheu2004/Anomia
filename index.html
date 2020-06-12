@@ -11,10 +11,11 @@
 
     <body>
         <div id="titleScreen">
+
             <h1>ANOMIA</h1>
             <button id="openInstructions" onclick="openSubscreen(instructions);">Instructions</button>
             <button id="openSettings" onclick="openSubscreen(settings);">Settings</button>
-            <button id="play" onclick="openSubscreen(game); play();">Play</button>
+            <button id="play" onclick="openSubscreen(game);">Play</button>
         </div>
 
         <div id="instructions" style="display: none">
@@ -80,12 +81,13 @@
 
         <div id="game" style="display: none">
             <div id="playerDiv">
-                <div class="player">
-                    <div class="cardStacks">
-                        <img class="stack card" src="images/cardBack.png" />
-                        <img class="pointsStack card" src="images/cardBack.png" />
-                    </div>
+                
+            </div>
+            <div id="deckDiv">
+                <div id="deckWrapper">
+                    <img id="deck" class="card" src="images/cardBack.png" />
                 </div>
+                <h2>Cards Left: <span id="cardsLeft"></span></h2>
             </div>
         </div>
     </body>
@@ -97,8 +99,17 @@
     <img id="symbolPreviewTemplate" class="symbolPreview" />
 
     <div id="playerTemplate" class="player">
-        <img class="stack card" src="images/cardBack.png" />
-        <img class="pointsStack card" src="images/cardBack.png" />
+        <h1 class="playerName"></h1>
+        <h2 class="points"></h2>
+        <div class="stack">
+            <img class="placeholderCard card" src="images/cardBack.png" />
+        </div>
+    </div>
+
+    <div id="cardTemplate" class="card faceUpCard">
+        <p></p>
+        <img class="symbol" src="images/symbols/" />
+        <p></p>
     </div>
 
     <script type="text/javascript" src="script.js"></script>

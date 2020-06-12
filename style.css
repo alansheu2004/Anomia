@@ -122,13 +122,13 @@ div#settings fieldset h2 {
     color: var(--highlightColor);
 }
 
-div#playersDiv {
+div#playerInputDiv {
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
-div.player input {
+div.playerInput input {
     font-size: 1.5vw;
     text-align: center;
     padding: 0.25vw 0;

@@ -28,6 +28,9 @@ function openSubscreen(div) {
 
         div.classList.add("fadeIn");
         div.style.display = "flex";
+        if (div == game) {
+            play();
+        }
         setTimeout(function() {
             div.classList.remove("fadeIn");
         }, 1000);
