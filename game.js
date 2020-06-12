@@ -81,6 +81,7 @@ function createCard(card) { //Not for wildcards
 function setupElements() {
     layout = rowLayout.checked;
     if(layout) {
+        playerDiv.textContent = "";
         for (let player of players) {
             let element = playerTemplate.cloneNode(true);
             element.children[0].textContent = player.name;
@@ -91,6 +92,10 @@ function setupElements() {
 
             player.element = element;
         }
+
+        rankingDiv.style.display = "none";
+        rankingDiv.classList.add("hidden");
+        deckDiv.style.display = "flex";
         
         players[turn%players.length].element.classList.add("turn");
         cardWidth = document.getElementsByClassName("placeholderCard")[0].offsetWidth;
@@ -100,6 +105,7 @@ function setupElements() {
         let sheet = document.createElement("style");
         sheet.textContent = "img.cardBack { width:"+cardWidth+"px; height:"+cardHeight+"px; }"
         sheet.textContent += "div.cardFront { width:"+cardWidth+"px; height:"+cardHeight+"px; }"
+        sheet.textContent += "div.cardFront p { font-size:"+cardWidth/8+"px; }"
         document.body.appendChild(sheet);
 
         cardsLeft.textContent = deck.length;
@@ -112,9 +118,12 @@ const WHRatio = 1/HWRatio;
 const playerDiv = document.getElementById("playerDiv");
 const playerTemplate = document.getElementById("playerTemplate");
 const cardTemplate = document.getElementById("cardTemplate");
-const cardBackTemplate = document.getElementById("cardBackTemplate")
+const cardBackTemplate = document.getElementById("cardBackTemplate");
+const deckDiv = document.getElementById("deckDiv");
 const deckImg = document.getElementById("deck");
 const cardsLeft = document.getElementById("cardsLeft");
+const rankingDiv = document.getElementById("rankingDiv");
+const ranking = document.getElementById("ranking");
 
 var layout;
 var cardWidth;
@@ -130,8 +139,14 @@ function play() {
     deck = createDeck();
     players = createPlayers();
     turn = 0;
+    faceOff = [];
+    if(currentWildcard) {
+        game.removeChild(currentWildcard);
+        currentWildcard = false;
+    }
 
     setupElements();
+    deckImg.removeEventListener("click",faceOffAlert);
     deckImg.addEventListener("click", draw);
 }
 
@@ -217,6 +232,10 @@ function draw() {
         newCardBack.removeAttribute("style");
         newCardBack.classList.add("flip");
 
+        if(deck.length == 0) {
+            document.getElementById("deckDiv").classList.add("hidden");
+        }
+
         setTimeout(function() {
             game.removeChild(newCardBack);
             game.appendChild(cardElement);
@@ -280,7 +299,29 @@ function startFaceOff(wildcard, card, initiator) {
 
 
     if(faceOff.length == 0) {
-        deckImg.addEventListener("click", draw);
+        if (currentWildcard) {
+            currentWildcard.classList.add("slideDown");
+            setTimeout(function() {
+                game.removeChild(currentWildcard);
+                currentWildcard = false;
+            }, 250);
+        }
+        
+        if (deck.length > 0) {
+            deckImg.addEventListener("click", draw);
+        } else {
+            deckDiv.style.display = "none";
+            deckDiv.classList.remove("hidden");
+
+            for(let player of players.sort(function(a, b) {b.points - a.points})) {
+                let li = document.createElement("li");
+                li.textContent = player.name + ": " + player.points + " pts"
+                ranking.appendChild(li);
+            }
+
+            rankingDiv.classList.remove("hidden");
+            rankingDiv.style.display = "flex";
+        }
     } else {
         deckImg.addEventListener("click", faceOffAlert);
     }

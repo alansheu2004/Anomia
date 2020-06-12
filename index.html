@@ -19,11 +19,11 @@
         </div>
 
         <div id="instructions" style="display: none">
-            <p>Each card has a symbol and a category on it. Each turn, a player draws a card and places it face up on their stack. This continues until two players have the same symbol on the card at the top of their stack: the two players now face off! (In this version, there will be no alert for a face-off, just a warning when attempting to draw another card. This is so that players must remain constantly vigilant.)</p>
+            <p>Each card has a symbol and a category on it. Each turn, a player draws a card and places it face up on their stack by clicking on the deck. This continues until two players have the same symbol on the card at the top of their stack: the two players now face off! (In this version, there will be no alert when a face-off begins, just a warning when attempting to draw another card during one. This is so that players must remain constantly vigilant.)</p>
 
-            <p>During a face-off, each player attempts to say something that falls in the category of the other player's card. Avoid repeating the same thing for the same category twice. Whoever succeeds in saying something takes the opponent's top card as a point. Note that taking the top card may reveal another card, triggering another face-off. Drawing a wildcard allows the two symbols on the wildcard to immediately face off. The wildcard is discarded after use.</p>
+            <p>During a face-off, each player attempts to say something that falls in the category of the other player's card. Avoid repeating the same thing for the same category twice. Whoever succeeds in saying something first takes the opponent's top card as a point by clicking on the win button. Note that taking the top card may reveal another card, triggering another face-off. Drawing a wildcard allows the two symbols shown on the wildcard to immediately face off. The wildcard is discarded after use.</p>
 
-            <p>The game ends when there are no more cards to draw and no more face-offs left, and whoever has the most points from winning face-offs wins the game.</p>
+            <p>The game ends when there are no more cards to draw and no more face-offs left, and whoever has the most points from winning face-offs wins the game!</p>
             
             <button class="returnToTitle" onclick="returnToTitle(instructions);">Done</button>
         </div>
@@ -60,7 +60,7 @@
                 <h2>Number of Cards</h2>
                 <p>The game will end when all cards are drawn.</p>
                 <div>
-                    <input id="cardsNum" type="range" min="20" max="150" value="50" oninput="changeCardsNum(event)">
+                    <input id="cardsNum" type="range" min="20" max="120" value="50" oninput="changeCardsNum(event)">
                     <label id="cardsNumLabel" for="cardsNum">50</label>
                 </div>
             </fieldset>
@@ -87,6 +87,13 @@
                 <img id="deck" class="cardH" src="images/cardBackH.png" />
                 <h2>Cards Left: <span id="cardsLeft"></span></h2>
             </div>
+            <div id="rankingDiv">
+                <h2>Final Ranking:</h2>
+                <ol id="ranking">
+                    
+                </ol>
+            </div>
+            <button class="quit" onclick="if(confirm('Are you sure you want to quit?')) {returnToTitle(game)}">Home</button>
         </div>
     </body>
 

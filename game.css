@@ -82,12 +82,19 @@ img.placeholderCard {
     visibility: hidden;
 }
 
-div#deckDiv {
+div#deckDiv, div#rankingDiv {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    transition: 0.5s;
+    filter: none;
+}
+
+div#deckDiv.hidden, div#rankingDiv.hidden {
+    filter: opacity(0);
+    transition: 0.5s;
 }
 
 div#deckDiv h2 {
@@ -132,6 +139,7 @@ div.cardFront p {
     color: black;
     font-weight: bold;
     text-align: center;
+    margin: 0 10%;
 }
 
 div.cardFront *:first-child {
@@ -151,4 +159,53 @@ div.cardFront.slideUp {
 div.cardFront.slideDown {
     filter: opacity(0);
     transform: translateY(50%);
+}
+
+div#rankingDiv h2 {
+    font-size: 5vh;
+}
+
+ol#ranking {
+    text-align: center;
+}
+
+ol#ranking li {
+    font-size: 3.5vh;
+}
+
+ol#ranking li:nth-child(1) {
+    font-size: 5vh;
+    color: gold;
+}
+
+ol#ranking li:nth-child(2) {
+    font-size: 4.5vh;
+    color: silver;
+}
+
+ol#ranking li:nth-child(3) {
+    font-size: 4vh;
+    color: #cf7b20;
+}
+
+button.quit {
+    padding: 1vh 2vh;
+    background-color: var(--highlightColor);
+    font-size: 5vh;
+    text-align: center;
+    color: white;
+    border: none;
+    position: absolute;
+    left: 2vh;
+    bottom: 2vh;
+}
+
+button.quit:hover {
+    background-color: var(--highlightColorLight);
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+button.quit:active {
+    background-color: var(--highlightColorDark);
 }

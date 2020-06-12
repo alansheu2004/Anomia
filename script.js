@@ -71,12 +71,12 @@ function addPlayer() {
 function removePlayer() {
     var playerCount = playerInputDiv.children.length;
 
-    if(playerCount > 2) {
+    if(playerCount > 3) {
         playerInputDiv.removeChild(playerInputDiv.lastChild);
     }
 
     addPlayerButton.disabled = false;
-    if(playerCount-1 <= 2) {
+    if(playerCount-1 <= 3) {
         removePlayerButton.disabled = true;
     }
 }
