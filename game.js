@@ -1,5 +1,5 @@
 function Card(symbol, category) {
-    this.symbols = symbol;
+    this.symbol = symbol;
     this.category = category;
 }
 
@@ -83,8 +83,15 @@ function setupElements() {
         
         players[turn%players.length].element.classList.add("turn");
         cardWidth = document.getElementsByClassName("placeholderCard")[0].offsetWidth;
-        deckImg.style.width = cardWidth + "px";
-        document.getElementById("cardsLeft").textContent = deck.length;
+        cardHeight = document.getElementsByClassName("placeholderCard")[0].offsetHeight;
+
+        deckImg.style.height = cardWidth + "px";
+        let sheet = document.createElement("style");
+        sheet.textContent = "img.cardBack { width:"+cardWidth+"px; height:"+cardHeight+"px; }"
+        sheet.textContent += "div.faceUpCard { width:"+cardWidth+"px; height:"+cardHeight+"px; }"
+        document.body.appendChild(sheet);
+
+        cardsLeft.textContent = deck.length;
     }
 }
 
@@ -97,10 +104,14 @@ const WHRatio = 1/HWRatio;
 
 const playerDiv = document.getElementById("playerDiv");
 const playerTemplate = document.getElementById("playerTemplate");
+const cardTemplate = document.getElementById("cardTemplate");
+const cardBackTemplate = document.getElementById("cardBackTemplate")
 const deckImg = document.getElementById("deck");
+const cardsLeft = document.getElementById("cardsLeft");
 
 var layout;
 var cardWidth;
+var cardHeight;
 
 var deck;
 var players;
@@ -112,5 +123,74 @@ function play() {
     turn = 0;
 
     setupElements();
-    deckImg
+    deckImg.addEventListener("click", draw);
+}
+
+function draw() {
+    deckImg.removeEventListener("click", draw);
+
+    let player = players[turn%players.length];
+    let card = deck.pop();
+    let cardElement = cardTemplate.cloneNode(true);
+
+    cardElement.children[0].textContent = card.category;
+    cardElement.children[2].textContent = card.category;
+    cardElement.id = "";
+    cardElement.classList.add("cardFront");
+    cardElement.children[1].src = "images/symbols/symbol" + (card.symbol+1) + ".svg";
+
+    cardsLeft.textContent = deck.length;
+
+    let newCardBack = cardBackTemplate.cloneNode(true);
+    newCardBack.style.left = (deckImg.offsetLeft + cardHeight/2 - cardWidth/2) + "px";
+    newCardBack.style.top = (deckImg.offsetTop + cardWidth/2 - cardHeight/2) + "px";
+    newCardBack.style.transform = "rotate(90deg)";
+    newCardBack.id = "";
+
+    let targetX = player.element.children[2].offsetLeft;
+    let targetY = player.element.children[2].offsetTop;
+    let midX = (targetX + Number(newCardBack.style.left.slice(0,-2))) / 2;
+    let midY = (targetY + Number(newCardBack.style.top.slice(0,-2))) / 2;
+
+    cardElement.style.left = midX + "px";
+    cardElement.style.top = midY + "px";
+    cardElement.style.transform = "rotate(45deg) rotateY(90deg)";
+
+    let sheet = document.createElement("style");
+    sheet.textContent = "img.cardBack.flip { transform:rotate(45deg) rotateY(90deg); left:"+midX+"px; top:"+midY+"px; }"
+    sheet.textContent += "div.cardFront.flip { transform:none; left:"+targetX+"px; top:"+targetY+"px; }"
+    document.body.appendChild(sheet);
+
+    game.appendChild(newCardBack);
+
+    
+    setTimeout(function() {
+        newCardBack.removeAttribute("style");
+        newCardBack.classList.add("flip");
+
+        setTimeout(function() {
+            game.removeChild(newCardBack);
+            game.appendChild(cardElement);
+
+            setTimeout(function() {
+                cardElement.removeAttribute("style");
+                cardElement.classList.add("flip");
+
+                setTimeout(function() {
+                    game.removeChild(cardElement);
+                    player.element.children[2].appendChild(cardElement);
+                    cardElement.classList.remove("flip");
+
+                    document.body.removeChild(sheet);
+
+                    player.element.classList.remove("turn");
+                    player = players[(turn++)%players.length];
+                    player.element.classList.add("turn");
+
+                    deckImg.addEventListener("click", draw);
+                }, 300);
+            }, 50);
+        }, 300);
+    }, 50);
+    
 }

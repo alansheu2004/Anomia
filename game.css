@@ -6,6 +6,7 @@ div#game {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 div#playerDiv {
@@ -41,10 +42,15 @@ div.player.turn h1.playerName, div.player.turn h2.points {
 div.stack {
     width: 100%;
     height: 80%;
+    position: relative;
 }
 
 .card {
     border-radius: 12.5% / 8%;
+}
+
+.cardH {
+    border-radius: 8% / 12.5%;
 }
 
 img.placeholderCard {
@@ -66,10 +72,23 @@ div#deckDiv h2 {
     flex: 0 0 auto;
 }
 
-div#deckWrapper {
-    transform-origin: 50% 50%;
-    transform: rotate(90deg);
+img#deck {
     flex: 0 0 auto;
+    margin-bottom: 3vw;
+}
+
+img.cardBack {
+    position: absolute;
+    transform-origin: 50% 50%;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in;
+}
+
+div.cardFront {
+    position: absolute;
+    transform-origin: 50% 50%;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
 }
 
 div.faceUpCard {
@@ -80,6 +99,10 @@ div.faceUpCard {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 div.faceUpCard p {
