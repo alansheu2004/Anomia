@@ -115,7 +115,6 @@ function setupElements() {
 }
 
 function setDimensions() {
-    console.log("yee");
     cardWidth = document.getElementsByClassName("placeholderCard")[0].offsetWidth;
     cardHeight = document.getElementsByClassName("placeholderCard")[0].offsetHeight;
     deckImg.style.height = cardWidth + "px";
