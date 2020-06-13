@@ -22,6 +22,8 @@ const cardsNumLabel = document.getElementById("cardsNumLabel");
 const rowLayout = document.getElementById("rowLayout");
 const circularLayout = document.getElementById("circularLayout");
 
+const selectBackground = document.getElementById("selectBackground");
+
 function openSubscreen(div) {
     titleScreen.classList.add("fadeOut");
     setTimeout(function() {
@@ -106,6 +108,15 @@ function changeCardsNum(e) {
     cardsNumLabel.textContent = e.target.value;
 }
 
+function changeBackground() {
+    var option = selectBackground.options[selectBackground.selectedIndex];
+    if(option.value == "none") {
+        document.body.style.backgroundImage = "none";
+    } else {
+        document.body.style.backgroundImage = "url('images/backgrounds/" + option.value + "')";
+    }
+}
+
 window.onload = function() {
     for(var i = 0; i < 4; i++) {
         addPlayer();
@@ -133,4 +144,6 @@ window.onload = function() {
         document.getElementById("layoutText").textContent = "(Row Layout recommended for desktop)";
         rowLayout.checked = "checked";
     }
+
+    window.onresize = setDimensions;
 }

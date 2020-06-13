@@ -107,18 +107,28 @@ function setupElements() {
         deckDiv.style.display = "flex";
         
         players[turn%players.length].element.classList.add("turn");
-        cardWidth = document.getElementsByClassName("placeholderCard")[0].offsetWidth;
-        cardHeight = document.getElementsByClassName("placeholderCard")[0].offsetHeight;
 
-        deckImg.style.height = cardWidth + "px";
-        let sheet = document.createElement("style");
-        sheet.textContent = "img.cardBack { width:"+cardWidth+"px; height:"+cardHeight+"px; }"
-        sheet.textContent += "div.cardFront { width:"+cardWidth+"px; height:"+cardHeight+"px; }"
-        sheet.textContent += "div.cardFront p { font-size:"+cardWidth/8+"px; }"
-        document.body.appendChild(sheet);
+        setDimensions();
 
         cardsLeft.textContent = deck.length;
     }
+}
+
+function setDimensions() {
+    console.log("yee");
+    cardWidth = document.getElementsByClassName("placeholderCard")[0].offsetWidth;
+    cardHeight = document.getElementsByClassName("placeholderCard")[0].offsetHeight;
+    deckImg.style.height = cardWidth + "px";
+
+    if(stylesheet) {
+        document.body.removeChild(stylesheet);
+    }
+
+    stylesheet = document.createElement("style");
+    stylesheet.textContent = "img.cardBack { width:"+cardWidth+"px; height:"+cardHeight+"px; }"
+    stylesheet.textContent += "div.cardFront { width:"+cardWidth+"px; height:"+cardHeight+"px; }"
+    stylesheet.textContent += "div.cardFront p { font-size:"+cardWidth/8+"px; }"
+    document.body.appendChild(stylesheet);
 }
 
 const HWRatio = 3.5/2.25;
@@ -137,6 +147,7 @@ const ranking = document.getElementById("ranking");
 var layout;
 var cardWidth;
 var cardHeight;
+var stylesheet;
 
 var deck;
 var players;

@@ -86,6 +86,13 @@
                 </div>
 
                 <h2>Background</h2>
+                <select id="selectBackground" onchange="changeBackground()">
+                    <option value="none">None</option>
+                    <option disabled>──────────</option>
+                    <option value="polygons.jpg">Polygons</option>
+                    <option value="space.png">Space</option>
+                    <option value="wood.jpg">Wood</option>
+                </select>
             </fieldset>
             
             <button class="returnToTitle" onclick="returnToTitle(settings);">Done</button>
