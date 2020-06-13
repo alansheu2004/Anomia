@@ -12,7 +12,9 @@ const symbolsDiv = document.getElementById("symbolsDiv");
 const symbolsPreview = document.getElementById("symbolsPreview");
 const symbolPreviewTemplate = document.getElementById("symbolPreviewTemplate");
 
-const categoriesTextArea = document.getElementById("categories");
+const selectCategories = document.getElementById("selectCategories");
+const customCategories = document.getElementById("customCategories");
+const categoriesTextArea = document.getElementById("customCategoriesField");
 
 const cardsNumSlider = document.getElementById("cardsNum");
 const cardsNumLabel = document.getElementById("cardsNumLabel");
@@ -71,12 +73,12 @@ function addPlayer() {
 function removePlayer() {
     var playerCount = playerInputDiv.children.length;
 
-    if(playerCount > 3) {
+    if(playerCount > 2) {
         playerInputDiv.removeChild(playerInputDiv.lastChild);
     }
 
     addPlayerButton.disabled = false;
-    if(playerCount-1 <= 3) {
+    if(playerCount-1 <= 2) {
         removePlayerButton.disabled = true;
     }
 }
@@ -89,6 +91,14 @@ function changeSymbol(e) {
         symbol.id = "";
         symbol.src = "images/symbols/symbol" + (i+1) + ".svg";
         symbolsPreview.appendChild(symbol);
+    }
+}
+
+function changeCategories() {
+    if(selectCategories.options[selectCategories.selectedIndex] == customCategories) {
+        categoriesTextArea.classList.add("expanded");
+    } else {
+        categoriesTextArea.classList.remove("expanded");
     }
 }
 

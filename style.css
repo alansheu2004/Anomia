@@ -206,14 +206,34 @@ div#settings p {
     margin-bottom: 1vw;
 }
 
-textArea#categories {
+select#selectCategories {
+    margin-bottom: 1vw;
+    padding: 0.5vw;
+    font-size: 2vw;
+    color: white;
+    background-color: var(--highlightColor);
+    border: none;
+}
+
+textArea#customCategoriesField {
     font-size: 1.5vw;
     text-align: center;
-    vertical-align: center;
+    vertical-align: middle;
     overflow-y: auto;
     resize: none;
-    width: 80%;
-    height: 8vw;
+    width: 75%;
+    height: 0;
+    transition: 0.5s;
+    display: block;
+    margin: auto;
+    border: none;
+    padding: 0 2vw;
+    box-sizing: border-box;
+}
+
+textArea#customCategoriesField.expanded {
+    height: 15vw;
+    transition: 0.5s;
 }
 
 input#cardsNum {

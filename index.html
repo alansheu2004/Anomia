@@ -54,13 +54,23 @@
                 <div id="symbolsPreview"></div>
             
                 <h2>Categories</h2>
-                <p>Separate with commas. Leave blank for default categories.</p>
-                <textarea id="categories" placeholder="Paste here..."></textarea>
+                <p>Select a list of category topic or make a custom one:</p>
+                <select id="selectCategories" onchange="changeCategories()">
+                    <option value="
+                        River, African Country, European Country, Asian Country, South American Country, North American Country, Lake, Island, City in USA, City in Russia, City in China, City in France, City in UK, African Capital, European Capital, Asian Capital, South American Capital, North American Capital, Mountain, Desert, Biome, Sea, Gulf, State/Province, Strait, Peninsula
+                    ">Geography</option>
+                    <option value="
+                        Astronaut, Actor/Actress, Football Player, Singer, Musician, Youtuber, Physicist, Chemist, Biologist, CEO, Author, King, Politician, European Explorer, Painter, Inventor, Comedian, Composer, Film Director, Philosopher, Mathemetician, Queen, Composer, Poet
+                    ">People</option>
+                    <option disabled>──────────</option>
+                    <option id="customCategories">Custom</option>
+                </select>
+                <textarea id="customCategoriesField" placeholder="Separate with commas... (max 20 characters per category)"></textarea>
 
                 <h2>Number of Cards</h2>
                 <p>The game will end when all cards are drawn.</p>
                 <div>
-                    <input id="cardsNum" type="range" min="20" max="120" value="50" oninput="changeCardsNum(event)">
+                    <input id="cardsNum" type="range" min="20" max="100" value="50" oninput="changeCardsNum(event)">
                     <label id="cardsNumLabel" for="cardsNum">50</label>
                 </div>
             </fieldset>
@@ -74,6 +84,8 @@
                     <input type="radio" id="rowLayout" name="layout" value="row"><label for="rowLayout">Row</label>
                     <input type="radio" id="circularLayout" name="layout" value="circular"><label for="circularLayout">Circular</label>
                 </div>
+
+                <h2>Background</h2>
             </fieldset>
             
             <button class="returnToTitle" onclick="returnToTitle(settings);">Done</button>

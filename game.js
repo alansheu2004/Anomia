@@ -10,14 +10,22 @@ function Wildcard() {
 
 function createDeck() {
     var deck = [];
-    var categories = categoriesTextArea.value.split(",").map(function(x) {return x.replace(/\s+/g," ").trim();});
+    var categoryOption = selectCategories.options[selectCategories.selectedIndex];
+    if(categoryOption == customCategories) {
+        var categories = categoriesTextArea.value
+    } else {
+        var categories = categoryOption.value;
+    }
+    categories = categories.split(",")
+        .map(function(x) {return x.replace(/\s+/g," ").trim().substring(0,20);})
+        .filter(function(y) {return (y !== "")});
     var randomizedCategories = [];
     var categoryCounter = 0;
     var symbols = [];
     var symbolCounter = 0;
     var cardsNum = cardsNumSlider.value;
 
-    if(categories.length == 1 && categories[0] == "") {
+    if(categories.length == 0) {
         categories = ["A", "B", "C", "D", "E"];
     }
 
@@ -95,6 +103,7 @@ function setupElements() {
 
         rankingDiv.style.display = "none";
         rankingDiv.classList.add("hidden");
+        ranking.textContent = "";
         deckDiv.style.display = "flex";
         
         players[turn%players.length].element.classList.add("turn");
@@ -313,7 +322,7 @@ function startFaceOff(wildcard, card, initiator) {
             deckDiv.style.display = "none";
             deckDiv.classList.remove("hidden");
 
-            for(let player of players.sort(function(a, b) {b.points - a.points})) {
+            for(let player of players.sort(function(a, b) {return b.points - a.points})) {
                 let li = document.createElement("li");
                 li.textContent = player.name + ": " + player.points + " pts"
                 ranking.appendChild(li);
