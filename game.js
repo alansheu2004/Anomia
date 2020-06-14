@@ -17,7 +17,7 @@ function createDeck() {
         var categories = categoryOption.value;
     }
     categories = categories.split(",")
-        .map(function(x) {return x.replace(/\s+/g," ").trim().substring(0,20);})
+        .map(function(x) {return x.replace(/\s+/g," ").trim().substring(0,30);})
         .filter(function(y) {return (y !== "")});
     var randomizedCategories = [];
     var categoryCounter = 0;
@@ -126,7 +126,7 @@ function setDimensions() {
     stylesheet = document.createElement("style");
     stylesheet.textContent = "img.cardBack { width:"+cardWidth+"px; height:"+cardHeight+"px; }"
     stylesheet.textContent += "div.cardFront { width:"+cardWidth+"px; height:"+cardHeight+"px; }"
-    stylesheet.textContent += "div.cardFront p { font-size:"+cardWidth/8+"px; }"
+    stylesheet.textContent += "div.cardFront p { font-size:"+cardWidth/10+"px; }"
     document.body.appendChild(stylesheet);
 }
 
