@@ -5,6 +5,7 @@
         <title>Anomia</title>
         <link type="text/css" rel="stylesheet" href="style.css" />
         <link type="text/css" rel="stylesheet" href="game.css" />
+        <link id="layoutCSS" type="text/css" rel="stylesheet" />
 
         <link rel="manifest" href="manifest.json">
     </head>
@@ -83,8 +84,8 @@
                 <h2>Layout</h2>
                 <p id="layoutText"></p>
                 <div id="layoutDiv">
-                    <input type="radio" id="rowLayout" name="layout" value="row"><label for="rowLayout">Row</label>
-                    <input type="radio" id="circularLayout" name="layout" value="circular"><label for="circularLayout">Circular</label>
+                    <input type="radio" id="rowLayout" name="layout" value="row" onchange="setLayout('row')"><label for="rowLayout">Row</label>
+                    <input type="radio" id="circularLayout" name="layout" value="circular" onchange="setLayout('circular')"><label for="circularLayout">Circular</label>
                 </div>
 
                 <h2>Background</h2>

@@ -21,6 +21,7 @@ const cardsNumLabel = document.getElementById("cardsNumLabel");
 
 const rowLayout = document.getElementById("rowLayout");
 const circularLayout = document.getElementById("circularLayout");
+const layoutCSS = document.getElementById("layoutCSS");
 
 const selectBackground = document.getElementById("selectBackground");
 
@@ -108,6 +109,10 @@ function changeCardsNum(e) {
     cardsNumLabel.textContent = e.target.value;
 }
 
+function setLayout(layout) {
+    layoutCSS.href = layout + ".css";
+}
+
 function changeBackground() {
     var option = selectBackground.options[selectBackground.selectedIndex];
     if(option.value == "none") {
@@ -140,9 +145,11 @@ window.onload = function() {
 
         document.getElementById("layoutText").textContent = "(Circular Layout recommended for mobile)";
         circularLayout.checked = "checked";
+        setLayout("circular");
     } else {
         document.getElementById("layoutText").textContent = "(Row Layout recommended for desktop)";
         rowLayout.checked = "checked";
+        setLayout("row");
     }
 
     window.onresize = setDimensions;

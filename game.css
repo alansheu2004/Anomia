@@ -9,19 +9,7 @@ div#game {
     position: relative;
 }
 
-div#playerDiv {
-    width: 100%;
-    height: 48vh;
-    display: flex;
-    margin-top: 2vh;
-    flex: 0 0 auto;
-}
-
 div.player {
-    height: 100%;
-    padding: 0 10px;
-    margin: 0 auto;
-    flex: 0 1 auto;
     text-align: center;
 }
 
@@ -83,13 +71,10 @@ img.placeholderCard {
 }
 
 div#deckDiv, div#rankingDiv {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     transition: 0.5s;
+    display: inline-block;
     filter: none;
+    z-index: -100;
 }
 
 div#deckDiv.hidden, div#rankingDiv.hidden {
@@ -99,12 +84,10 @@ div#deckDiv.hidden, div#rankingDiv.hidden {
 
 div#deckDiv h2 {
     font-size: 3vh;
-    flex: 0 0 auto;
 }
 
 img#deck {
-    flex: 0 0 auto;
-    margin-bottom: 3vw;
+    margin-bottom: 1vw;
 }
 
 img.cardBack {
@@ -169,10 +152,6 @@ ol#ranking {
     text-align: center;
 }
 
-ol#ranking li {
-    font-size: 3.5vh;
-}
-
 ol#ranking li:nth-child(1) {
     font-size: 5vh;
     color: gold;
@@ -191,7 +170,7 @@ ol#ranking li:nth-child(3) {
 button.quit {
     padding: 1vh 2vh;
     background-color: var(--highlightColor);
-    font-size: 5vh;
+    font-size: 4vh;
     text-align: center;
     color: white;
     border: none;
