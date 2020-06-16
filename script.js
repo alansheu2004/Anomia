@@ -1,6 +1,7 @@
 const titleScreen = document.getElementById("titleScreen");
 const instructions = document.getElementById("instructions");
 const settings = document.getElementById("settings");
+const about = document.getElementById("about");
 const game = document.getElementById("game");
 
 const playerInputDiv = document.getElementById("playerInputDiv");

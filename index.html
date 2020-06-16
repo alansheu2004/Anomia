@@ -16,6 +16,7 @@
             <h1>ANOMIA</h1>
             <button id="openInstructions" onclick="openSubscreen(instructions);">Instructions</button>
             <button id="openSettings" onclick="openSubscreen(settings);">Settings</button>
+            <button id="openAbout" onclick="openSubscreen(about);">About</button>
             <button id="play" onclick="openSubscreen(game);">Play</button>
         </div>
 
@@ -24,7 +25,7 @@
 
             <p>The game startswith just a deck in the middle. Every turn, a player draws a card and places it face up on their stack of previously drawn cards by clicking on the deck. Each card has a symbol and a category on it. This cycle continues until two players have the same symbol on the card at the top of their stack: the two players now face off! Players cannot draw more cards until the face-off is resolved.</p>
 
-            <p>During a face-off, the two players in the face-off will attempt to blurt out something that fits into the category of the other's player's top card as fast as possible. The same thing cannot be used twice for the same category. Whoever is faster can press their win button, increasing their points by 1 and removing the opponent's top card. Note that removing the top card may reveal another card, cascading into another face-off.</p>
+            <p>During a face-off, the two players in the face-off will attempt to blurt out something that fits into the category of the other's player's top card as fast as possible. The same thing cannot be used twice, even for a different category. Whoever is faster can press their win button, increasing their points by 1 and removing the opponent's top card. Note that removing the top card may reveal another card, cascading into another face-off.</p>
 
             <p>Wildcards, unlike regular cards, have no categories and 2 different symbols. When a wildcard is drawn, the players with those 2 symbols on their top cards immediately face off. The wildcard is then discarded and not added to any stack.</p>
 
@@ -62,8 +63,14 @@
                 <p>Select a list of category topic or make a custom one:</p>
                 <select id="selectCategories" onchange="changeCategories()">
                     <option value="
+                        Winged Insect, Wingless Insect, Arachnid, Flying Bird, Flightless Bird, Primate, Marsupial, Rodent, Canine, Feline, Farm Animal, Hooved Animal, Tropical Fish, Shark, Amphibian, Land Mollusc, Water Mollusc, Reptile, Mythical Creature, Horned Animal, Marine Mammal, Microscopic Animal, Extinct Animal, Endangered Animal, Carnivore, Herbivore, Omnivore, Parasite
+                    ">Animals</option>
+                    <option value="
                         River, African Country, European Country, Asian Country, South American Country, North American Country, Lake, Island, City in USA, City in Russia, City in China, City in France, City in UK, African Capital, European Capital, Asian Capital, South American Capital, North American Capital, Mountain, Desert, Biome, Sea, Gulf, State/Province, Strait, Peninsula
                     ">Geography</option>
+                    <option value="
+                        Gryffindor Wizard (M), Gryffindor Witch (F), Hufflepuff Wizard (M), Hufflepuff Witch (F), Ravenclaw Wizard (M), Ravenclaw Witch (F), Slytherin Wizard (M), Slytherin Witch (F), Hogwarts Professor, Ghost, Diagon Alley Shop, Weasley Child, Pure-blood, Half-blood, Muggle-born, Squib, Magical Plant, Spell, Magical Creature, Magical Food, Quidditch Ball, Quidditch Position, Magical School Subject
+                    ">Harry Potter</option>
                     <option value="
                         Astronaut, Actor/Actress, Football Player, Singer, Musician, Youtuber, Physicist, Chemist, Biologist, CEO, Author, King, Politician, European Explorer, Painter, Inventor, Comedian, Composer, Film Director, Philosopher, Mathemetician, Queen, Composer, Poet
                     ">People</option>
@@ -105,6 +112,14 @@
             </fieldset>
             
             <button class="returnToTitle" onclick="returnToTitle(settings);">Done</button>
+        </div>
+
+        <div id="about" style="display: none">
+            <p>This was not created or endorsed by Anomia Press. <br /> It is a non-commercial instance with game artwork by me.</p>
+
+            <p>Find more of me and my other projects at <a href="https://alansheu2004.github.io">alansheu2004.github.io</a>.</p>
+
+            <button class="returnToTitle" onclick="returnToTitle(about);">Done</button>
         </div>
 
         <div id="game" style="display: none">

@@ -47,7 +47,7 @@ body {
 }
 
 
-div#titleScreen, div#settings, div#instructions {
+div#titleScreen, div#settings, div#instructions, div#about {
     width: 100%;
     min-height: 100%;
     display: flex;
@@ -100,6 +100,11 @@ div#titleScreen button:hover {
 
 div#titleScreen button:active {
     background-color: var(--highlightColorDark);
+}
+
+div#titleScreen button#play {
+    font-size: 4vw;
+    font-weight: bold;
 }
 
 button.returnToTitle {
@@ -313,4 +318,20 @@ div#layoutDiv label:hover {
 
 div#layoutDiv label:active {
     background-color: var(--highlightColorDark);
+}
+
+div#about p {
+    margin-bottom: 2vh;
+    font-size: 3vh;
+    text-align: center;
+}
+
+div#about a {
+    color: var(--highlightColorLight);
+    transition: 0.15s;
+    text-decoration: none;
+}
+
+div#about a:hover {
+    text-decoration: underline;
 }
