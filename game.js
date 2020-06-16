@@ -278,8 +278,6 @@ function draw() {
     sheet.textContent += "div.dynamic.flip { transform: rotate("+targetA+"deg) rotateY(0deg); left:"+targetX+"px; top:"+targetY+"px; }"
     document.body.appendChild(sheet);
 
-    console.log(sheet.textContent);
-
     game.appendChild(newCardBack);
 
     
@@ -329,29 +327,30 @@ function draw() {
 
 function startFaceOff(wildcard, card, initiator) {
     faceOff = [];
-    if(wildcard) {
-        let player1;
-        for(let player of players) {
-            if(player.stack.length > 0 && player.stack.slice(-1)[0].symbol == card.symbol1) {
-                player1 = player;
-                break;
-            }
-        }
-        if(player1 != undefined) {
+    if(card != undefined) {
+        if(wildcard) {
+            let player1;
             for(let player of players) {
-                if(player.stack.length > 0 && player.stack.slice(-1)[0].symbol == card.symbol2) {
-                    faceOff = [player1, player];
+                if(player.stack.length > 0 && player.stack.slice(-1)[0].symbol == card.symbol1) {
+                    player1 = player;
+                    break;
+                }
+            }
+            if(player1 != undefined) {
+                for(let player of players) {
+                    if(player.stack.length > 0 && player.stack.slice(-1)[0].symbol == card.symbol2) {
+                        faceOff = [player1, player];
+                    }
+                }
+            }
+        } else {
+            for(let player of players) {
+                if(player != initiator && player.stack.length > 0 && player.stack.slice(-1)[0].symbol == card.symbol) {
+                    faceOff = [initiator, player];
                 }
             }
         }
-    } else {
-        for(let player of players) {
-            if(player != initiator && player.stack.length > 0 && player.stack.slice(-1)[0].symbol == card.symbol) {
-                faceOff = [initiator, player];
-            }
-        }
     }
-
 
     if(faceOff.length == 0) {
         if (currentWildcard) {
@@ -368,7 +367,7 @@ function startFaceOff(wildcard, card, initiator) {
             deckDiv.style.display = "none";
             deckDiv.classList.remove("hidden");
 
-            for(let player of players.sort(function(a, b) {return b.points - a.points}).slice(0,3)) {
+            for(let player of players.reverse().sort(function(a, b) {return b.points - a.points}).slice(0,3)) {
                 let li = document.createElement("li");
                 li.textContent = player.name + ": " + player.points + " pts"
                 ranking.appendChild(li);
@@ -405,12 +404,7 @@ function winFaceOff(player) {
 
             deckImg.removeEventListener("click", faceOffAlert);
 
-            if(faceOff[0].stack.length > 0) {
-                startFaceOff(false, faceOff[0].stack.slice(-1)[0], faceOff[0]);
-            } else {
-                faceOff = [];
-                deckImg.addEventListener("click", draw);
-            }
+            startFaceOff(false, faceOff[0].stack.slice(-1)[0], faceOff[0]);
         }, 250);
     } else {
         alert(player.name + " is not in a face-off!");
