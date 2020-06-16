@@ -139,7 +139,7 @@ function setDimensions() {
 
         stylesheet = document.createElement("style");
         stylesheet.textContent = "img.cardBack { width:"+cardWidth+"px; height:"+cardHeight+"px; }";
-        stylesheet.textContent = "img.placeholderCard { width:"+cardWidth+"px; height:"+cardHeight+"px; }";
+        stylesheet.textContent += "img.placeholderCard { width:"+cardWidth+"px; height:"+cardHeight+"px; }";
         stylesheet.textContent += "div.cardFront { width:"+cardWidth+"px; height:"+cardHeight+"px; }";
         stylesheet.textContent += "div.cardFront p { font-size:"+cardWidth/10+"px; }";
 
@@ -148,6 +148,7 @@ function setDimensions() {
         for(let i = 0; i < players.length; i++) {
             let angle = i*2*Math.PI/players.length - (players.length%2==0 ? 0 : Math.PI/2);
             players[i].angle = angle;
+            console.log(angle);
             let radius = Math.sqrt(1 / (Math.pow(Math.cos(angle)/(50*vw-20),2) + Math.pow(Math.sin(angle)/(50*vh-20),2))) - players[i].element.offsetHeight/2;
             stylesheet.textContent += "div.player:nth-child("+(i+1)+") {" +
                 "transform: rotate(" + (angle+3*Math.PI/2) + "rad);" +
@@ -253,25 +254,26 @@ function draw() {
     cardsLeft.textContent = deck.length;
 
     let newCardBack = cardBackTemplate.cloneNode(true);
-    newCardBack.style.left = (deckImg.offsetLeft + cardHeight/2 - cardWidth/2) + "px";
-    newCardBack.style.top = (deckImg.offsetTop + cardWidth/2 - cardHeight/2) + "px";
+    newCardBack.style.left = (deckImg.getBoundingClientRect().left + cardHeight/2 - cardWidth/2) + "px";
+    newCardBack.style.top = (deckImg.getBoundingClientRect().top + cardWidth/2 - cardHeight/2) + "px";
     newCardBack.style.transform = "rotate(90deg)";
     newCardBack.id = "";
 
-    let targetX = wildcard ? Number(newCardBack.style.left.slice(0,-2)) : player.element.children[3].getBoundingClientRect().left;
-    let targetY = wildcard ? Number(newCardBack.style.top.slice(0,-2)) : player.element.children[3].getBoundingClientRect().top;
+    let targetBox = player.element.children[3].getBoundingClientRect();
+    let targetX = wildcard ? Number(newCardBack.style.left.slice(0,-2)) : targetBox.left + targetBox.width/2 - cardWidth/2;
+    let targetY = wildcard ? Number(newCardBack.style.top.slice(0,-2)) : targetBox.top + targetBox.height/2 - cardHeight/2;
     let targetA = layout ? 0 : (player.angle-Math.PI/2)*180/Math.PI;
-    console.log(targetA);
+    
     let midX = (targetX + Number(newCardBack.style.left.slice(0,-2))) / 2;
     let midY = (targetY + Number(newCardBack.style.top.slice(0,-2))) / 2;
-    let midA = (targetA + 90) / 2
+    let midA = (targetA + 90) / 2 ;
 
     cardElement.style.left = midX + "px";
     cardElement.style.top = midY + "px";
-    cardElement.style.transform = "scale(1.25,1.25) rotate("+midA+"deg) rotateY(90deg)";
+    cardElement.style.transform = "scale(1.25,1.25) rotate("+midA+"deg) ";
 
     let sheet = document.createElement("style");
-    sheet.textContent = "img.cardBack.flip { transform:scale(1.5,1.5) rotate("+midA+"deg) rotateY(90deg); left:"+midX+"px; top:"+midY+"px; }"
+    sheet.textContent = "img.cardBack.flip { transform:scale(1.5,1.5) rotate("+midA+"deg); left:"+midX+"px; top:"+midY+"px; }"
     sheet.textContent += "div.dynamic.flip { transform: rotate("+targetA+"deg); left:"+targetX+"px; top:"+targetY+"px; }"
     document.body.appendChild(sheet);
 

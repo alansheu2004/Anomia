@@ -11,6 +11,7 @@ div.player {
     padding: 0 10px;
     margin: 0 auto;
     flex: 0 1 auto;
+    position: relative;
 }
 
 div#deckDiv, div#rankingDiv {

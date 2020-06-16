@@ -115,6 +115,7 @@ div.cardFront {
     left: 0;
     top: 0;
 
+    transform-origin: 50% 50%;
     transition: 0.25s;
 }
 
