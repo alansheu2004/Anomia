@@ -23,9 +23,9 @@
 :root {
     --backgroundColor: black;
     --textColor: white;
-    --highlightColor: darkblue;
-    --highlightColorLight: blue;
-    --highlightColorDark: #000050;
+    --highlightColor: #0000ff;
+    --highlightColorLight: #3355ff;
+    --highlightColorDark: #0000aa;
     --highlightTextColor: white;
 }
 
@@ -87,7 +87,7 @@ div#titleScreen button {
     color: var(--highlightTextColor);
     border: none;
     background-color: var(--highlightColor);
-    font-size: 3vw;
+    font-size: 2.5vw;
     padding: 1vw 2vw;
     margin: 1vw 0;
 }
